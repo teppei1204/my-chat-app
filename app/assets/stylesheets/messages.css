@@ -1,0 +1,37 @@
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+}
+
+.side-bar{
+  width: 300px;
+  padding: 0 20px;
+  background-color: red;
+}
+
+.side-header{
+  height: 100px;
+  border-radius: 15px;
+  background-color: yellow;
+}
+
+.main-header{
+  height: 100px;
+  background-color: gray;
+}
+
+.main-content {
+  width: calc(100vw - 300px);
+}
+
+.main-chat{
+  height: calc(100vh - 100px - 90px);
+  margin: 20px 0;
+  background-color: black;
+}
+
+.input{
+  height: 90px;
+  background-color: gray;
+}
