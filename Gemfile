@@ -70,3 +70,6 @@ group :test do
   gem "selenium-webdriver"
 
 end
+gem 'pg'
+gem 'devise'
+gem 'active_hash'
