@@ -126,11 +126,13 @@
   background-color: white;
 
 } */
+/* フォームフィールド */
 .form-field {
   width: 80%;
   position: relative;
   margin: 10px 0;
 }
+/* メッセージ入力フィールド */
 .input-text {
   display: block;
   width: 100%;
@@ -153,6 +155,7 @@
      }
   }
 }
+/* ラベル（メッセージフィールド） */
 .label {
   position: absolute;
   left: 20px;
@@ -166,6 +169,31 @@
   transition: transform .2s ease-in-out;
 }
 
+/* 画像選択ラベル */
+.form-image {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #000;  /* 画像選択ボタンの背景色 */
+  color: #fff;
+  font-family: Raleway, sans-serif;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 14px;
+  margin-top: 10px;  /* 上のフォームとの間隔 */
+  transition: background-color 0.3s ease;  /* ホバー時に色が変わるように */
+}
+
+.form-image:hover {
+  background-color: darkgrey;  /* ホバー時の色 */
+}
+
+/* 非表示にするinput[type="file"] */
+.hidden {
+  display: none;
+}
+
+/* サブミットボタン */
 .submit-btn {
   display: inline-block;
   background-color: #000;
