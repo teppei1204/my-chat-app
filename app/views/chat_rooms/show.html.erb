@@ -1,0 +1,14 @@
+<!-- app/views/chat_rooms/show.html.erb -->
+<%= turbo_stream_from "chat_room_#{@chat_room.id}" %>  <!-- Turbo Streamsでリアルタイム更新をリッスン -->
+
+<div id="messages">
+  <%= render @chat_room.messages %>  <!-- チャットルーム内のメッセージを表示 -->
+</div>
+
+<!-- メッセージ送信フォーム -->
+<%= form_with model: [@chat_room, Message.new], local: false do |form| %>
+  <div class="input">
+    <%= form.text_area :content, placeholder: "Type a message...", class: "input-text js-input" %>
+    <%= form.submit "Send", class: "submit-btn" %>
+  </div>
+<% end %>

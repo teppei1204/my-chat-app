@@ -1,0 +1,16 @@
+<!-- app/views/chat_rooms/index.html.erb -->
+<%= turbo_stream_from 'chat_rooms' %> <!-- チャットルームのリストをリアルタイムで更新 -->
+
+<div class="wrapper">
+  <div class="side-bar">
+    <%= render "side_bar" %>
+  </div>
+  
+  <div class="main-content">
+    <%= render "main_chat" %>
+  </div>
+</div>
+
+<div id="chat_rooms">
+  <%= render @chat_rooms %> <!-- 各チャットルームを部分テンプレートで表示 -->
+</div>

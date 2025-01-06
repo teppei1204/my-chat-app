@@ -54,6 +54,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_27_093832) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["created_by_user_id"], name: "index_chat_rooms_on_created_by_user_id"
+    t.index ["name"], name: "index_chat_rooms_on_name", unique: true
   end
 
   create_table "messages", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|

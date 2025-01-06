@@ -1,0 +1,19 @@
+<!-- app/views/chat_rooms/_side_bar.html.erb -->
+<div class="side-header">
+  <div class="side-header_contents">
+    <div class="user-name"><%= current_user.username %></div>
+    <div class="new-chat">
+      <%= link_to 'チャットを作成する', new_chat_room_path %>
+    </div>
+  </div>
+</div>
+
+<div class="rooms">
+  <% current_user.chat_rooms.each do |chat_room| %>
+    <div class="room">
+      <div class="room-text">
+        <%= link_to chat_room.name, chat_room_path(chat_room) %>
+      </div>
+    </div>
+  <% end %>
+</div>

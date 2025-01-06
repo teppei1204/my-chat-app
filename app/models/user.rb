@@ -12,4 +12,13 @@ class User < ApplicationRecord
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
+  # usernameでの認証を追加
+  def self.find_for_authentication(conditions)
+    if conditions[:username].present?
+      where(username: conditions[:username]).first
+    else
+      super
+    end
+  end
 end
