@@ -1,14 +1,36 @@
-<!-- app/views/chat_rooms/show.html.erb -->
-<%= turbo_stream_from "chat_room_#{@chat_room.id}" %>  <!-- Turbo Streamsでリアルタイム更新をリッスン -->
-
-<div id="messages">
-  <%= render @chat_room.messages %>  <!-- チャットルーム内のメッセージを表示 -->
-</div>
-
-<!-- メッセージ送信フォーム -->
-<%= form_with model: [@chat_room, Message.new], local: false do |form| %>
-  <div class="input">
-    <%= form.text_area :content, placeholder: "Type a message...", class: "input-text js-input" %>
-    <%= form.submit "Send", class: "submit-btn" %>
+<%= turbo_frame_tag "chat-room-content" do %>
+  <div class="main-header">
+    <div class="main-header_contents">
+      <div class="main-header_text"><%= @chat_room.name %> のチャット</div> <!-- チャットルーム名を動的に表示 -->
+      <div class="auth-links">
+        <% if user_signed_in? %>
+          <!-- ログインしている場合はログアウトリンクを表示 -->
+          <div class="logout">
+            <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
+          </div>
+        <% else %>
+          <!-- ログインしていない場合はログインリンクを表示 -->
+          <div class="login">
+            <%= link_to 'ログイン', new_user_session_path %>
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
-<% end %>
+
+  <div class="main-chat">
+    <%= turbo_frame_tag "messages" do %>  <!-- メッセージ部分を Turbo Frame で囲む -->
+      <% if @chat_room.messages.present? %>  <!-- メッセージが存在する場合に表示 -->
+        <% @chat_room.messages.each do |message| %>  <!-- メッセージを動的に表示 -->
+          <%= render "messages/message", message: message %>  <!-- メッセージのパーシャルをレンダリング -->
+        <% end %>
+      <% else %>
+        <p>まだメッセージがありません。</p>  <!-- メッセージがない場合の表示 -->
+      <% end %>
+    <% end %>  <!-- turbo_frame_tag の終了 -->
+  </div>
+
+  <!-- メッセージ送信フォームをパーシャルから呼び出す -->
+  <%= render "messages/main_chat_form", chat_room: @chat_room %>
+
+<% end %>  <!-- turbo_frame_tag の終了 -->
