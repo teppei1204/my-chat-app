@@ -8,12 +8,10 @@
   </div>
 </div>
 
-<div class="rooms">
-  <% current_user.chat_rooms.each do |chat_room| %>
-    <div class="room">
-      <div class="room-text">
-        <%= link_to chat_room.name, chat_room_path(chat_room) %>
-      </div>
-    </div>
-  <% end %>
-</div>
+<%= turbo_frame_tag "chat_rooms_sidebar" do %>
+  <div class="rooms">
+    <% current_user.chat_rooms.each do |chat_room| %>
+      <%= render partial: 'chat_rooms/room', locals: { chat_room: chat_room } %>
+    <% end %>
+  </div>
+<% end %>

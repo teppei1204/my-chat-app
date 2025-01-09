@@ -1,16 +1,21 @@
-<!-- app/views/chat_rooms/index.html.erb -->
-<%= turbo_stream_from 'chat_rooms' %> <!-- チャットルームのリストをリアルタイムで更新 -->
+<%= turbo_stream_from 'chat_rooms' %> <!-- リアルタイムでチャットルームの更新をリッスン -->
 
 <div class="wrapper">
   <div class="side-bar">
-    <%= render "side_bar" %>
+    <%= render "side_bar" %>  <!-- サイドバーをレンダリング -->
   </div>
-  
+
   <div class="main-content">
-    <%= render "main_chat" %>
+    <%= turbo_frame_tag "chat-room-content" do %>
+      <!-- チャットルームに関連するコンテンツ（メッセージ）をここに表示 -->
+      <%= render "main_chat" %>  <!-- メインチャット部分をレンダリング -->
+    <% end %>
   </div>
 </div>
 
-<div id="chat_rooms">
-  <%= render @chat_rooms %> <!-- 各チャットルームを部分テンプレートで表示 -->
-</div>
+<!-- サイドバー内のルームリストの部分 -->
+<%= turbo_frame_tag "chat_rooms_sidebar" do %>
+  <div id="chat_rooms">
+    <%= render partial: 'chat_rooms/room', collection: @chat_rooms, as: :chat_room %>  <!-- チャットルームのリストを表示 -->
+  </div>
+<% end %>

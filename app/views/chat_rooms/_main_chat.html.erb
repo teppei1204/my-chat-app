@@ -1,15 +1,13 @@
 <!-- app/views/chat_rooms/_main_chat.html.erb -->
 <div class="main-header">
   <div class="main-header_contents">
-    <div class="main-header_text">チャットタイトル</div>
+    <div class="main-header_text"><%= @chat_room.name %> のチャット</div> <!-- チャットルーム名を動的に表示 -->
     <div class="auth-links">
       <% if user_signed_in? %>
-        <!-- ログインしている場合はログアウトリンクを表示 -->
         <div class="logout">
           <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
         </div>
       <% else %>
-        <!-- ログインしていない場合はログインリンクを表示 -->
         <div class="login">
           <%= link_to 'ログイン', new_user_session_path %>
         </div>
@@ -19,49 +17,26 @@
 </div>
 
 <div class="main-chat">
-  <div class="upper-chat">
-    <div class="upper-information">
-      tetsu
-    </div>
-    <div class="upper-date">
-      2024/12/4 12:00
-    </div>
-  </div>
-  <div class="under-chat">
-    <div class="under-text">
-      あああああああああああああ
-    </div>
-  </div>
-  <div class="upper-chat">
-    <div class="upper-information">
-      kabu
-    </div>
-    <div class="upper-date">
-      2024/12/4 14:00
-    </div>
-  </div>
-  <div class="under-chat">
-    <div class="under-text">
-      ううううううううううううううううう
-    </div>
-  </div>
+  <% if @messages.present? %> <!-- @messages が存在する場合に繰り返し -->
+    <% @messages.each do |message| %>
+      <div class="upper-chat">
+        <div class="upper-information">
+          <%= message.user.username %> <!-- メッセージ送信者の名前 -->
+        </div>
+        <div class="upper-date">
+          <%= message.created_at.strftime("%Y/%m/%d %H:%M") %> <!-- メッセージの日付 -->
+        </div>
+      </div>
+      <div class="under-chat">
+        <div class="under-text">
+          <%= message.content %> <!-- メッセージ内容 -->
+        </div>
+      </div>
+    <% end %>
+  <% else %> <!-- メッセージがない場合の表示 -->
+    <p>メッセージがまだありません。</p>
+  <% end %>
 </div>
 
-<div class="input">
-  <div class="form-field col x-100">
-    <input id="message" class="input-text js-input" type="text" required>
-    <label class="label" for="message">Message</label>
-  </div>
-
-  <!-- 画像選択用のフィールド -->
-  <div class="form-field col x-100">
-    <label class="form-image">
-      <span class="image-file">画像を選択</span>
-      <input type="file" class="hidden" id="image-upload" name="image">
-    </label>
-  </div>
-
-  <div class="form-field col x-100 ">
-    <input class="submit-btn" type="submit" value="Submit">
-  </div>
-</div>
+<!-- メッセージ送信フォームをパーシャルから呼び出す -->
+<%= render "messages/main_chat_form" %>

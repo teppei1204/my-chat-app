@@ -1,47 +1,18 @@
 <div class="side-header">
   <div class="side-header_contents">
-    <div class="user-name">KABUKI</div>
+    <div class="user-name"><%= current_user.username %></div>
     <div class="new-chat">
-      <a href="#">チャットを作成する</a>
+      <%= link_to 'チャットを作成する', new_chat_room_path %>
     </div>
   </div>
 </div>
 
-<div class="rooms">
-  <div class="room">
-    <div class="room-text">悪魔の実</div>
+<%= turbo_frame_tag "chat_rooms_sidebar" do %>
+  <div class="rooms">
+    <% current_user.chat_rooms.each do |chat_room| %>
+      <div class="room">
+        <%= link_to chat_room.name, chat_room_path(chat_room), class: 'room-text' %>  <!-- ルーム名をリンクとして表示 -->
+      </div>
+    <% end %>
   </div>
-  <div class="room">
-    <div class="room-text">海軍本部</div>
-  </div>
-  <div class="room">
-    <div class="room-text">ドンキホーテ・ロシナンテ</div>
-  </div>
-  <div class="room">
-    <div class="room-text">シャンクスのあの頃</div>
-  </div>
-  <div class="room">
-    <div class="room-text">本編序盤のカイドウ</div>
-  </div>
-  <div class="room">
-    <div class="room-text">おつるの動き</div>
-  </div>
-  <div class="room">
-    <div class="room-text">ヘルメッポの心境</div>
-  </div>
-  <div class="room">
-    <div class="room-text">ヒグマの人生</div>
-  </div>
-  <div class="room">
-    <div class="room-text">ワノ国の時のクロコダイル</div>
-  </div>
-  <div class="room">
-    <div class="room-text">青キジの心境</div>
-  </div>
-  <div class="room">
-    <div class="room-text">青キジvs赤犬</div>
-  </div>
-  <div class="room">
-    <div class="room-text">ロックス海賊団vsロジャー＆ガープ</div>
-  </div>
-</div>
+<% end %>

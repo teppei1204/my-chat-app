@@ -1,4 +1,7 @@
-// Import and register all your controllers from the importmap via controllers/**/*_controller
-import { application } from "controllers/application"
-import { eagerLoadControllersFrom } from "@hotwired/stimulus-loading"
-eagerLoadControllersFrom("controllers", application)
+// app/javascript/controllers/index.js
+
+import { Application } from "@hotwired/stimulus";
+
+import "controllers";  // controllers フォルダ内の全てのコントローラを読み込む
+
+const application = Application.start();

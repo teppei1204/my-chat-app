@@ -1,4 +1,9 @@
-// Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
-import "@hotwired/turbo-rails"
+// Turboをインポート
+import { Turbo } from "@hotwired/turbo-rails";
+
+// Turboを無効にして、通常のHTMLリダイレクトを使用
+Turbo.session.drive = false;
+
+// その他のインポート
 import "controllers"
 import "channels"

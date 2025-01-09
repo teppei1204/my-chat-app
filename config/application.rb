@@ -10,13 +10,16 @@ module MyChatApp
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
+
+    # 日本語設定
     config.i18n.default_locale = :ja
-    # Configuration for the application, engines, and railties goes here.
-    #
-    # These settings can be overridden in specific environments using the files
-    # in config/environments, which are processed later.
-    #
-    # config.time_zone = "Central Time (US & Canada)"
-    # config.eager_load_paths << Rails.root.join("extras")
+
+    # タイムゾーン設定 (日本時間)
+    config.time_zone = 'Asia/Tokyo'  # アプリケーション内でのタイムゾーンを日本時間に設定
+
+    # データベースはUTCで保存する設定（推奨）
+    config.active_record.default_timezone = :utc  # データベースに保存される日時はUTCのまま
+
+    # その他の設定があればここに追加
   end
 end

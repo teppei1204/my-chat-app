@@ -1,5 +1,21 @@
-<!-- app/views/messages/_message.html.erb -->
 <div class="message" id="message_<%= message.id %>">
-  <strong><%= message.user.name %>:</strong>
-  <p><%= message.content %></p>
+  <div class="message-header">
+    <!-- ユーザー名とメッセージ作成日時 -->
+    <strong class="message-username"><%= message.user.username.presence || "匿名ユーザー" %>:</strong>  <!-- ユーザー名にクラスを追加 -->
+    <span class="message-time" style="color: white; opacity: 0.7;">
+      <%= message.created_at.strftime("%Y/%m/%d %H:%M") %>
+    </span>
+  </div>
+
+  <div class="message-body">
+    <!-- メッセージ本文 -->
+    <p style="color: white;"><%= message.content %></p> <!-- メッセージ本文の文字色を白に指定 -->
+  </div>
+
+  <% if message.image.attached? %>
+    <!-- 画像が添付されていれば表示 -->
+    <div class="message-image">
+      <%= image_tag message.image, alt: "添付画像", class: "message-image-tag", style: "max-width: 100%; height: auto;" %>
+    </div>
+  <% end %>
 </div>

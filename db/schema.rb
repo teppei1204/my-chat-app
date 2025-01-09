@@ -58,10 +58,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_27_093832) do
   end
 
   create_table "messages", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "sender"
-    t.text "content"
+    t.text "content", null: false
+    t.bigint "user_id", null: false
+    t.bigint "chat_room_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["chat_room_id"], name: "index_messages_on_chat_room_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -82,4 +85,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_27_093832) do
   add_foreign_key "chat_room_users", "chat_rooms"
   add_foreign_key "chat_room_users", "users"
   add_foreign_key "chat_rooms", "users", column: "created_by_user_id"
+  add_foreign_key "messages", "chat_rooms"
+  add_foreign_key "messages", "users"
 end

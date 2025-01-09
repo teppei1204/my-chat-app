@@ -1,7 +1,6 @@
-<!-- app/views/chat_rooms/new.html.erb -->
 <h1>チャットルームを作成</h1>
 
-<%= form_with model: @chat_room, local: true do |form| %>
+<%= form_with model: @chat_room, data: { turbo_action: "replace", turbo_frame: "chat_rooms_sidebar", controller: "disable-submit-button" }, remote: true do |form| %>
   <% if @chat_room.errors.any? %>
     <div class="error-messages">
       <h2>エラーがあります:</h2>
@@ -15,7 +14,7 @@
 
   <div class="form-field">
     <%= form.label :name, "ルーム名" %>
-    <%= form.text_field :name, class: 'input-text', required: true %>
+    <%= form.text_field :name, class: 'input-text', required: true, data: { target: "disable-submit-button.submitButton" } %>
   </div>
 
   <div class="form-field">
