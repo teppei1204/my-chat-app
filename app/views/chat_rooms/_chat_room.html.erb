@@ -1,4 +1,4 @@
 <!-- app/views/chat_rooms/_chat_room.html.erb -->
 <div class="chat-room">
-  <%= link_to chat_room.name, chat_room_path(chat_room) %>
+  <%= link_to chat_room.name, chat_room_path(chat_room), data: { turbo_frame: "chat-room-content" }, class: 'chat-room-link' %>
 </div>

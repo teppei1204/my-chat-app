@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   root to: "chat_rooms#index" # チャットルームの一覧ページに変更
   
   # チャットルームに関するルーティング
-  resources :chat_rooms, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
+  resources :chat_rooms, only: [:new, :create, :index, :show, :destroy] do
     # チャットルーム内のメッセージに関するルーティング
     resources :messages, only: [:create, :index]  # メッセージの作成と表示
   end

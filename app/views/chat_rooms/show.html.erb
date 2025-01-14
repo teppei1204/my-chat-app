@@ -1,36 +1,47 @@
+<!-- app/views/chat_rooms/show.html.erb -->
 <%= turbo_frame_tag "chat-room-content" do %>
-  <div class="main-header">
+  <div class="main-header" data-controller="chat-room">
     <div class="main-header_contents">
-      <div class="main-header_text"><%= @chat_room.name %> のチャット</div> <!-- チャットルーム名を動的に表示 -->
+      <div class="main-header_text">
+        <%= @chat_room.name %> のチャット
+      </div>
+
       <div class="auth-links">
         <% if user_signed_in? %>
-          <!-- ログインしている場合はログアウトリンクを表示 -->
           <div class="logout">
             <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
           </div>
         <% else %>
-          <!-- ログインしていない場合はログインリンクを表示 -->
           <div class="login">
             <%= link_to 'ログイン', new_user_session_path %>
           </div>
         <% end %>
       </div>
+
+      <% if @chat_room.created_by_user_id == current_user.id %>
+        <!-- チャットルームの詳細ページにのみ表示される削除ボタン -->
+        <div class="delete-chat-room">
+          <%= link_to '削除', chat_room_path(@chat_room), 
+                      data: { turbo_method: :delete, turbo_confirm: '本当にこのチャットルームを削除しますか？' }, 
+                      class: 'delete-button' %>
+        </div>
+      <% end %>
     </div>
   </div>
 
+  <!-- メッセージの表示部分 -->
   <div class="main-chat">
-    <%= turbo_frame_tag "messages" do %>  <!-- メッセージ部分を Turbo Frame で囲む -->
-      <% if @chat_room.messages.present? %>  <!-- メッセージが存在する場合に表示 -->
-        <% @chat_room.messages.each do |message| %>  <!-- メッセージを動的に表示 -->
-          <%= render "messages/message", message: message %>  <!-- メッセージのパーシャルをレンダリング -->
+    <%= turbo_frame_tag "messages" do %>
+      <% if @chat_room.messages.present? %>
+        <% @chat_room.messages.each do |message| %>
+          <%= render "messages/message", message: message %>
         <% end %>
       <% else %>
-        <p>まだメッセージがありません。</p>  <!-- メッセージがない場合の表示 -->
+        <p>まだメッセージがありません。</p>
       <% end %>
-    <% end %>  <!-- turbo_frame_tag の終了 -->
+    <% end %>
   </div>
 
-  <!-- メッセージ送信フォームをパーシャルから呼び出す -->
+  <!-- メッセージ入力フォーム -->
   <%= render "messages/main_chat_form", chat_room: @chat_room %>
-
-<% end %>  <!-- turbo_frame_tag の終了 -->
+<% end %> <!-- turbo_frame_tag "chat-room-content" -->
