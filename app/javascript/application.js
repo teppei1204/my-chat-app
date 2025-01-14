@@ -1,9 +1,6 @@
-// Turboをインポート
-import { Turbo } from "@hotwired/turbo-rails";
+// app/javascript/packs/application.js
 
-// Turboを無効にして、通常のHTMLリダイレクトを使用
-Turbo.session.drive = false;
-
-// その他のインポート
-import "controllers"
-import "channels"
+import { Turbo } from "@hotwired/turbo-rails"; // Turboのインポート
+import "controllers";  // Stimulus controllers
+import "channels";    // ActionCableなど
+// import "../chat_room_delete";

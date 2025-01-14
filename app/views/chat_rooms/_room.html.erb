@@ -1,5 +1,10 @@
-<div class="room">
-  <div class="room-text">
-    <%= link_to chat_room.name, chat_room_path(chat_room), data: { turbo_frame: "chat-room-content" }, class: "chat-room-link" %>
+<!-- app/views/chat_rooms/_room.html.erb -->
+<% if chat_room.present? %>
+  <div class="room" id="chat-room-<%= chat_room.id %>">
+    <%= link_to chat_room.name, chat_room_path(chat_room), data: { turbo_frame: "chat-room-content" }, class: 'chat-room-link' %>
   </div>
-</div>
+<% else %>
+  <div class="room">
+    <p>このチャットルームは削除されました。</p>
+  </div>
+<% end %>

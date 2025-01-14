@@ -391,3 +391,27 @@
   font-weight: bold;  /* 太字にすることで強調 */
   text-decoration: underline;  /* 下線を追加 */
 }
+
+/* main-header内の削除ボタン */
+.main-header_contents {
+  display: flex;
+  justify-content: space-between;  /* タイトルとログイン・ログアウトリンクを左右に配置 */
+  align-items: center;
+  padding: 20px 20px;
+  position: relative;  /* ヘッダー内でボタンを配置するため */
+}
+
+/* 削除ボタンのスタイル */
+.delete-chat-room {
+  margin-left: 20px;  /* ログイン・ログアウトリンクとのスペースを調整 */
+}
+
+.delete-button {
+  color: red;  /* 色を赤にする */
+  cursor: pointer;  /* ポインターにする */
+  text-decoration: none;  /* 下線を消す */
+}
+
+.delete-button:hover {
+  text-decoration: underline;  /* ホバー時に下線を表示 */
+}

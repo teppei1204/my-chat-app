@@ -1,10 +1,29 @@
-<%= turbo_stream_from 'chat_rooms' %> <!-- リアルタイムでチャットルームの更新をリッスン -->
-
 <div class="wrapper">
+  <!-- サイドバー部分 -->
   <div class="side-bar">
-    <%= render "side_bar" %>  <!-- サイドバーをレンダリング -->
+    <%= turbo_frame_tag "chat_rooms_sidebar" do %>
+      <div class="side-header">
+        <div class="side-header_contents">
+          <div class="user-name"><%= current_user.username %></div>
+          <div class="new-chat">
+            <%= link_to 'チャットを作成する', new_chat_room_path, data: { turbo: false } %>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- チャットルームのリスト部分 -->
+      <div class="rooms">
+        <% current_user.chat_rooms.each do |chat_room| %>
+          <div class="room" id="chat-room-<%= chat_room.id %>">
+            <%= link_to chat_room.name, chat_room_path(chat_room), data: { turbo_frame: "chat-room-content" }, class: 'chat-room-link' %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 
+  <!-- メインコンテンツ部分 -->
   <div class="main-content">
     <%= turbo_frame_tag "chat-room-content" do %>
       <!-- チャットルームに関連するコンテンツ（メッセージ）をここに表示 -->
@@ -12,10 +31,3 @@
     <% end %>
   </div>
 </div>
-
-<!-- サイドバー内のルームリストの部分 -->
-<%= turbo_frame_tag "chat_rooms_sidebar" do %>
-  <div id="chat_rooms">
-    <%= render partial: 'chat_rooms/room', collection: @chat_rooms, as: :chat_room %>  <!-- チャットルームのリストを表示 -->
-  </div>
-<% end %>
