@@ -8,7 +8,7 @@ class User < ApplicationRecord
   has_many :chat_rooms, through: :chat_room_users
 
   # プロフィール画像の添付
-  has_one_attached :profile_image
+  # has_one_attached :profile_image
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable

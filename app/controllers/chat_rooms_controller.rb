@@ -60,9 +60,6 @@ class ChatRoomsController < ApplicationController
 
   # チャットルームを削除する
   def destroy
-    @chat_room = ChatRoom.find(params[:id])
-  
-    # チャットルーム削除
     @chat_room.destroy
   
     # Turbo Stream で削除を反映
