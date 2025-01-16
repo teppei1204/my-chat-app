@@ -1,42 +1,29 @@
-<!-- app/views/chat_rooms/_main_chat.html.erb -->
 <div class="main-header">
   <div class="main-header_contents">
-    <div class="main-header_text"><%= @chat_room.name %> のチャット</div> <!-- チャットルーム名を動的に表示 -->
-    <div class="auth-links">
-      <% if user_signed_in? %>
-        <div class="logout">
-          <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
-        </div>
-      <% else %>
-        <div class="login">
-          <%= link_to 'ログイン', new_user_session_path %>
-        </div>
-      <% end %>
-    </div>
+    <div class="main-header_text"><%= @chat_room.name %> のチャット</div>
   </div>
 </div>
 
 <div class="main-chat">
-  <% if @messages.present? %> <!-- @messages が存在する場合に繰り返し -->
+  <% if @messages.present? %>
     <% @messages.each do |message| %>
       <div class="upper-chat">
         <div class="upper-information">
-          <%= message.user.username %> <!-- メッセージ送信者の名前 -->
+          <%= message.user.username %>
         </div>
         <div class="upper-date">
-          <%= message.created_at.strftime("%Y/%m/%d %H:%M") %> <!-- メッセージの日付 -->
+          <%= message.created_at.strftime("%Y/%m/%d %H:%M") %>
         </div>
       </div>
       <div class="under-chat">
         <div class="under-text">
-          <%= message.content %> <!-- メッセージ内容 -->
+          <%= message.content %>
         </div>
       </div>
     <% end %>
-  <% else %> <!-- メッセージがない場合の表示 -->
+  <% else %>
     <p>メッセージがまだありません。</p>
   <% end %>
 </div>
 
-<!-- メッセージ送信フォームをパーシャルから呼び出す -->
 <%= render "messages/main_chat_form" %>
