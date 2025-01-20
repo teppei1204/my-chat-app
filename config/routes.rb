@@ -1,9 +1,6 @@
 Rails.application.routes.draw do
   # Devise のルートは最初に記述
-  devise_for :users, controllers: {
-    sessions: 'users/sessions', # ログイン関連のカスタムコントローラ
-    registrations: 'users/registrations' # サインアップ関連のカスタムコントローラ（必要に応じて）
-  }
+  devise_for :users  # カスタムコントローラーは削除
 
   # ルートをチャットルーム一覧ページに変更
   root to: "chat_rooms#index" # チャットルームの一覧ページに変更

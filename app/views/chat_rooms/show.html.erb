@@ -6,26 +6,7 @@
         <%= @chat_room.name %> のチャット
       </div>
 
-      <div class="auth-links">
-        <% if user_signed_in? %>
-          <div class="logout">
-            <%= link_to 'ログアウト', destroy_user_session_path, 
-            data: { turbo_method: :delete }, 
-            class: "nav__btn" %>
-          </div>
-        <% else %>
-          <div class="login">
-            <%= link_to 'ログイン', new_user_session_path, class: "nav__btn" %>
-          </div>
-          <div class="register">
-            <%= link_to '新規登録', new_user_registration_path, data: { turbo: false }, class: "nav__btn" %>
-  <!-- 新規登録ボタン追加 -->
-          </div>
-        <% end %>
-      </div>
-
       <% if @chat_room.created_by_user_id == current_user.id %>
-        <!-- チャットルームの詳細ページにのみ表示される削除ボタン -->
         <div class="delete-chat-room">
           <%= link_to '削除', chat_room_path(@chat_room), 
                       data: { turbo_method: :delete, turbo_confirm: '本当にこのチャットルームを削除しますか？' }, 
@@ -35,7 +16,6 @@
     </div>
   </div>
 
-  <!-- メッセージの表示部分 -->
   <div class="main-chat">
     <%= turbo_frame_tag "messages" do %>
       <% if @chat_room.messages.present? %>
@@ -45,10 +25,9 @@
       <% else %>
         <p>まだメッセージがありません。</p>
       <% end %>
-    <% end %>
+    <% end %> <!-- End of turbo_frame_tag "messages" -->
   </div>
 
   <!-- メッセージ入力フォーム -->
   <%= render "messages/main_chat_form", chat_room: @chat_room %>
-<% end %> <!-- turbo_frame_tag "chat-room-content" -->
-
+<% end %> <!-- End of turbo_frame_tag "chat-room-content" -->

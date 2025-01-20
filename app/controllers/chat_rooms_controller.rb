@@ -66,7 +66,6 @@ class ChatRoomsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to chat_rooms_path, notice: 'チャットルームが削除されました。' }
       format.turbo_stream do
-        # Turbo Stream メッセージを返して、削除されたチャットルームをサイドバーから削除
         render turbo_stream: turbo_stream.remove("chat-room-#{@chat_room.id}")
       end
     end

@@ -1,7 +1,7 @@
 <div class="wrapper">
   <!-- サイドバー部分 -->
   <div class="side-bar">
-    <%= turbo_frame_tag "chat_rooms_sidebar" do %>
+    <%= turbo_frame_tag "chat-rooms-sidebar" do %>
       <div class="side-header">
         <div class="side-header_contents">
           <div class="user-name"><%= current_user.username %></div>
@@ -10,7 +10,6 @@
           </div>
         </div>
       </div>
-
 
       <!-- チャットルームのリスト部分 -->
       <div class="rooms">
@@ -27,7 +26,7 @@
   <div class="main-content">
     <%= turbo_frame_tag "chat-room-content" do %>
       <!-- チャットルームに関連するコンテンツ（メッセージ）をここに表示 -->
-      <%= render "main_chat" %>  <!-- メインチャット部分をレンダリング -->
+      <%= render 'main_chat', chat_room: @chat_room, messages: @messages %>
     <% end %>
   </div>
 </div>

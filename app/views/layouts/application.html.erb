@@ -24,6 +24,22 @@
       </div>
     <% end %>
 
+    <!-- ヘッダー部分にログイン/ログアウト、新規登録のリンクを表示 -->
+    <div class="auth-links">
+      <% if user_signed_in? %>
+        <div class="logout">
+          <%= link_to 'ログアウト', destroy_user_session_path, data: { turbo_method: :delete }, class: "nav__btn" %>
+        </div>
+      <% else %>
+        <div class="login">
+          <%= link_to 'ログイン', new_user_session_path, class: "nav__btn" %>
+        </div>
+        <div class="register">
+          <%= link_to '新規登録', new_user_registration_path, class: "nav__btn" %>
+        </div>
+      <% end %>
+    </div>
+
     <%= yield %>
   </body>
 </html>

@@ -1,23 +1,35 @@
-<!-- app/views/devise/sessions/new.html.erb -->
-<h2>ログイン</h2>
+<div class="account-page" id="account-page">
+  <div class="account-page__inner clearfix">
+    <div class="account-page__inner--left account-page__header">
+      <h2>Log in</h2>
+      <h5>登録しているユーザーでログイン</h5>
+      <%= render "devise/shared/links" %>
+    </div>
+    <div class="account-page__inner--right user-form">
+      <%= form_with model: resource, as: resource_name, url: session_path(resource_name), local: true do |f| %>
+        <div class="field">
+          <div class="field-label">
+            <%= f.label :email %>
+          </div>
+          <div class="field-input">
+            <%= f.email_field :email, autofocus: true, class: 'form-control' %>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-label">
+            <%= f.label :password %>
+            <i>(英数字6文字以上)</i>
+          </div>
+          <div class="field-input">
+            <%= f.password_field :password, autocomplete: "off", class: 'form-control' %>
+          </div>
+        </div>
 
-<%= form_with(model: resource, url: session_path(resource_name), method: :post, local: true) do |f| %>
-  <div class="field">
-    <%= f.label :username, "ユーザー名" %><br />
-    <%= f.text_field :username, autofocus: true, autocomplete: "username" %>
+        <div class="actions">
+          <%= f.submit "Log in", class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+    </div>
   </div>
-
-  <div class="field">
-    <%= f.label :password, "パスワード" %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "ログイン" %>
-  </div>
-<% end %>
-
-<!-- サインインフォームの下に「新規登録」のリンクを追加 -->
-<p>
-  <%= link_to '新規登録', new_user_registration_path %> <!-- 新規登録ページへのリンク -->
-</p>
+</div>
