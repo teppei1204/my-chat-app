@@ -68,12 +68,12 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
-
 end
-gem 'pg'
+
 gem 'devise'
 gem 'active_hash'
 gem 'rails-i18n'
+
 group :production do
   gem 'pg'
 end
